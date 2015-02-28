@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+from scipy.stats import ttest_ind
 
 ## PATHING -------------------------
 main_dir = "/Users/mirandamarks/Documents/Documents/My Documents/Duke/Spring 2015/PubPol590/"
@@ -17,9 +18,6 @@ missing = ['-', ' ', 'NA', '.', 'null', '9999999']
 df = pd.concat([pd.read_table(v, names = ['ID', 'date_cer', 'kWh'], na_values = missing, sep = " ") for v in paths], ignore_index = True)
 
 # CLEAN DATA ---------------------
-
-## drop duplicates
-df.drop_duplicates(['ID', 'date_cer'])
 
 ## create separate day and hour columns
 df['hour_cer'] = df['date_cer'] % 100 # extract last two digits of date as hour
