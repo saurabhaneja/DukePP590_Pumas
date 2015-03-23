@@ -1,3 +1,4 @@
+""" NOT THE MOST EFFICIENT CODE (DUE TO ONE LINE) BUT REALLY PRETTY!"""
 from __future__ import division
 from pandas import Series, DataFrame
 import pandas as pd
@@ -7,9 +8,9 @@ import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind
 
 ## PATHING -------------------------
-main_dir = "/Users/mirandamarks/Documents/Documents/My Documents/Duke/Spring 2015/PubPol590/"
-root = main_dir + "CER_both/Data/"
-assign_file = "SME_Residential_Allocations.csv"
+main_dir = "/Users/dnoriega/Dropbox/pubpol590_sp15/data_sets/CER/"
+root = main_dir + "cooked/"
+assign_file = "SME and Residential allocations.csv"
 time_file = "timeseries_correction.csv"
 
 ## IMPORT DATA ---------------------
@@ -25,7 +26,6 @@ df['day_cer'] = (df['date_cer'] - df['hour_cer']) / 100 # extract first three di
 
 ## import timeseries correction to fix date issues
 df_time = pd.read_csv(root + time_file, header=0, usecols=[1,2,3,4,5,6,7,8,9,10])
-df = pd.merge(df, df_time) # default merges on common hour_cer and day_cer keys
 
 
 # IMPORT ASSIGNMENT DATA -----------
@@ -40,6 +40,9 @@ df_assign = pd.concat([df_assign.ix[a[0]], df_assign.ix[a[1]]])
 
 # MERGE DATA WITH ASSIGNMENT ----------------
 df = pd.merge(df, df_assign) # default merges on common 'ID' key
+
+"""MOVED FROM ABOVE -- THIS WILL GREATLY CUT DOWN ON CODE RUNNING TIME"""
+df = pd.merge(df, df_time) # default merges on common hour_cer and day_cer keys
 
 ## drop old dataframes
 del df_assign
