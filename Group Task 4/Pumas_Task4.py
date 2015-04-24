@@ -1,3 +1,5 @@
+"""9/9 pts"""
+
 from __future__ import division
 import pandas as pd
 import numpy as np
@@ -5,7 +7,7 @@ import os
 import statsmodels.api as sm
 from pandas import Series, DataFrame
 
-main_dir = "c:/Users/Dennis Bartlett/Desktop/PubPol590/A4/"
+main_dir = '/Users/dnoriega/Dropbox/pubpol590_sp15/data_sets/CER/tasks/4_task_data/'
 
 # CHANGE WORKING DIRECTORY (wd)
 os.chdir(main_dir)
@@ -48,15 +50,15 @@ sig.name = 't-stats'
 
 # create a column with p hat values using the predict() method
 df_logit['p_val']=logit_results.predict()
-    
+
 # create a column to identify 'treated' IDs, where 1= treated and 0 = control
 df_logit['trt'] = 0 + (df_logit['tariff'] == 'C')
-    
+
 # generate a column of propensity score weights
 # use equation w = sqrt((D/p) + (1-D)/(1-p))
-df_logit['w'] = np.sqrt(df_logit['trt']/df_logit['p_val'] 
+df_logit['w'] = np.sqrt(df_logit['trt']/df_logit['p_val']
 + (1-df_logit['trt'])/(1-df_logit['p_val']))
-    
+
 # simplify desired results into separate df
 df_w = df_logit[['ID', 'trt','w']]
 
