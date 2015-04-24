@@ -198,6 +198,9 @@ df = pd.read_csv(root + 'data_section2.csv')
 qs = ques_list(srvy)
 
 # get dummies
+
+"""DAN - DUMMY 200 WAS REQUIRED IN THE REGRESSION! -1 PT"""
+
 sel = [300, 405]
 dummies = dvt(srvy, sel)
 
